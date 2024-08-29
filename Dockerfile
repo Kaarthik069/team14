@@ -1,10 +1,13 @@
-FROM node:alpine
+FROM node:11.2.0-alpine
 
-RUN mkdir -p /usr/src
-WORKDIR /usr/src
+RUN apk add --no-cache curl-dev libzip-dev autoconf build-base gmp-dev coreutils python
 
-COPY . /usr/src
-RUN npm install
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY . /usr/src/app
+
+RUN npm i
 
 EXPOSE 3000
-CMD npm run start
+
+CMD ["npm", "start"]
